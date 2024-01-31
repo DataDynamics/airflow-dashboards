@@ -23,7 +23,7 @@
   "liveNow": false,
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": {
         "type": "prometheus",
         "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
@@ -105,7 +105,7 @@
               }
             ]
           },
-          "unit": "ms",
+          "unit": "s",
           "unitScale": true
         },
         "overrides": []
@@ -137,7 +137,7 @@
             "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
           },
           "editorMode": "code",
-          "expr": "af_agg_dagrun_duration_success{dag_id=\"$dag_id\"} * 1000",
+          "expr": "af_agg_dagrun_duration_success{dag_id=\"$dag_id\"}",
           "format": "time_series",
           "interval": "",
           "legendFormat": "{{dag_id}} p{{quantile}}",
@@ -238,7 +238,7 @@
             "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
           },
           "editorMode": "code",
-          "expr": "af_agg_dagrun_duration_failed{dag_id=\"$dag_id\"} * 1000",
+          "expr": "af_agg_dagrun_duration_failed{dag_id=\"$dag_id\"}",
           "interval": "",
           "legendFormat": "{{dag_id}} p{{quantile}}",
           "range": true,
@@ -337,7 +337,8 @@
             "type": "prometheus",
             "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
           },
-          "expr": "sum by (dag_id, quantile) (af_agg_dag_task_duration{dag_id=\"$dag_id\"}) * 1000",
+          "editorMode": "code",
+          "expr": "sum by (dag_id) (af_agg_dag_task_duration_sum{dag_id=\"$dag_id\"})",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -437,9 +438,11 @@
             "type": "prometheus",
             "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
           },
+          "editorMode": "code",
           "expr": "af_agg_dagrun_dependency_check{dag_id=\"$dag_id\"} * 1000",
           "interval": "",
           "legendFormat": "{{dag_id}} p{{quantile}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -535,9 +538,11 @@
             "type": "prometheus",
             "uid": "c849323a-59d4-4282-b18c-1ee002d0851b"
           },
+          "editorMode": "code",
           "expr": "af_agg_dagrun_schedule_delay{dag_id=\"$dag_id\"} * 1000",
           "interval": "",
           "legendFormat": "{{dag_id}} p{{quantile}}",
+          "range": true,
           "refId": "A"
         }
       ],
@@ -599,6 +604,6 @@
   "timezone": "",
   "title": "Airflow DAG dashboard - airflow_nifi_job_monitoring",
   "uid": "qBWJRGPMz",
-  "version": 4,
+  "version": 11,
   "weekStart": ""
 }
